@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>squint: UI where every element earns its place</title>
+  <meta name="description" content="An agent skill that makes Claude Code, Codex, and other coding agents build UI where every element earns its place, and then try to break it before they ship.">
+  <link rel="canonical" href="https://squint.q9labs.ai/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://squint.q9labs.ai/">
+  <meta property="og:title" content="squint: UI where every element earns its place">
+  <meta property="og:description" content="An agent skill for Claude Code, Codex, and other coding agents. Principles with tests, and a last step that tries to break the work.">
+  <meta property="og:image" content="https://squint.q9labs.ai/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="squint: UI where every element earns its place">
+  <meta name="twitter:description" content="An agent skill for Claude Code, Codex, and other coding agents.">
+  <meta name="twitter:image" content="https://squint.q9labs.ai/og.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <meta name="color-scheme" content="light dark">
+  <style>
+    :root {
+      --paper: #F3EEE4; --ink: #1E1C19; --soft: #6B655C; --line: #DDD5C6;
+      --green: #2F5D50; --code-bg: #E9E2D4;
+      --sans: system-ui, -apple-system, "Helvetica Neue", sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --paper: #1B1A17; --ink: #F1ECE2; --soft: #A69F93; --line: #34312C; --green: #7FB5A3; --code-bg: #26241F; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--sans); }
+    main { max-width: 40rem; margin-inline: auto; padding: 4rem 1.25rem 3rem; }
+    h1 { display: flex; align-items: center; gap: .6rem; font-size: 2.5rem; line-height: 1.1; margin: 0 0 .75rem; letter-spacing: -.02em; }
+    h1 svg { width: 2.4rem; height: 2.4rem; }
+    .lede { font-size: 1.2rem; color: var(--soft); margin: 0 0 1.75rem; }
+    .install { display: flex; flex-wrap: wrap; gap: .5rem; align-items: stretch; margin-block-end: 2.5rem; }
+    .install code { flex: 1 1 18rem; display: flex; align-items: center; padding: .7rem .9rem; background: var(--code-bg); border-radius: 8px; font: 15px var(--mono); overflow-x: auto; white-space: nowrap; }
+    button { font: 600 15px var(--sans); padding: .7rem 1rem; min-height: 44px; border: 0; border-radius: 8px; background: var(--ink); color: var(--paper); cursor: pointer; }
+    button:focus-visible, a:focus-visible, video:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+    video { display: block; width: 100%; aspect-ratio: 1; border-radius: 10px; background: var(--code-bg); }
+    figcaption { color: var(--soft); font-size: .95rem; margin-block-start: .6rem; }
+    figure { margin: 0 0 3rem; }
+    h2 { font-size: 1.25rem; margin: 2.5rem 0 .5rem; }
+    p { margin: 0 0 1rem; }
+    ul { padding-inline-start: 1.1rem; margin: 0; }
+    li { margin-block-end: .45rem; }
+    li strong { font-weight: 600; }
+    a { color: var(--ink); text-underline-offset: 3px; }
+    footer { margin-block-start: 3.5rem; padding-block-start: 1.25rem; border-block-start: 1px solid var(--line); color: var(--soft); font-size: .95rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    footer a { color: var(--soft); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>
+      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M6 33 C 20 21, 44 21, 58 33" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M6 33 C 20 41, 44 41, 58 33" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="32" r="5" fill="currentColor"/></svg>
+      squint
+    </h1>
+    <p class="lede">An agent skill that makes Claude Code, Codex, and other coding agents build UI where every element earns its place, and then try to break it before they ship.</p>
+
+    <div class="install">
+      <code id="cmd">npx skills add realhasanshoaib/squint</code>
+      <button type="button" id="copy" aria-describedby="cmd">Copy command</button>
+    </div>
+
+    <figure>
+      <video src="/squint.mp4" poster="/poster.jpg" controls preload="metadata" playsinline aria-label="squint cleans up an AI-made dashboard, then tries to break the result"></video>
+      <figcaption>Claude drew every frame and synthesized every sound of this video in JavaScript.</figcaption>
+    </figure>
+
+    <h2>Why</h2>
+    <p>AI-built UI looks AI-built: a purple gradient, "Welcome back", icon tiles, a badge on every row, and a glowing Submit button. A list of banned patterns doesn't fix it, because the next screen is never on the list.</p>
+    <p>So squint gives the agent principles with tests it can run, such as "if removing it loses nothing, remove it" and "blur the screenshot and name the first three things you see". For anything its examples don't cover, the agent applies the principle. Then, before it reports, it tries to prove its own work wrong.</p>
+
+    <h2>What it checks</h2>
+    <ul>
+      <li><strong>Every element earns its place.</strong> If removing it loses nothing, it goes.</li>
+      <li><strong>Minimal is not bare.</strong> Icons, status dots, and avatar colors stay when they help people scan.</li>
+      <li><strong>Never ship AI tells.</strong> No purple gradients, glows, glassmorphism, or "Start your journey".</li>
+      <li><strong>Layout shows what matters first.</strong> Heading, then the main action, then the work.</li>
+      <li><strong>The control fits the answer.</strong> Two to four options are radio buttons, not a dropdown.</li>
+      <li><strong>Everyone can use it.</strong> Native elements first, and the task works with only a keyboard.</li>
+      <li><strong>Fix it once, in the shared piece.</strong> Repeated problems get fixed in the shared component.</li>
+      <li><strong>Copy speaks the user's words.</strong> "Save changes", not "Submit".</li>
+      <li><strong>Every language is a full product.</strong> Layouts mirror, and each locale gets tested.</li>
+    </ul>
+
+    <h2>Try to break it</h2>
+    <p>The last step makes the agent attack its own work instead of approving it. Each attack is a hypothesis it can fail: no data, a thousand items, the longest translation, keyboard only, a failed request. For risky changes, a judge model from a different family reviews the evidence without the builder's reasoning. Fixes get retested, and the report lists what failed first.</p>
+
+    <footer>
+      <a href="https://github.com/realhasanshoaib/squint">Source on GitHub</a>
+      <a href="https://github.com/realhasanshoaib/squint/blob/main/skills/squint/SKILL.md">Read the skill</a>
+      <span>MIT license</span>
+    </footer>
+  </main>
+  <script>
+    const button = document.getElementById("copy");
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(document.getElementById("cmd").textContent);
+        button.textContent = "Copied";
+      } catch {
+        button.textContent = "Select and copy";
+      }
+      setTimeout(() => { button.textContent = "Copy command"; }, 2000);
+    });
+  </script>
+</body>
+</html>

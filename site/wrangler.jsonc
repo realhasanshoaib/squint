@@ -1,0 +1,6 @@
+{
+  "name": "squint-site",
+  "compatibility_date": "2026-10-14",
+  "assets": { "directory": "./public" },
+  "routes": [{ "pattern": "squint.q9labs.ai", "custom_domain": true }]
+}
