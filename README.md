@@ -2,7 +2,7 @@
 
 An agent skill that makes Claude Code, Codex, and other coding agents build UI where every element earns its place, and then try to break it before they ship.
 
-[![Watch squint clean up an AI-made dashboard (30 seconds)](media/poster.jpg)](site/public/squint.mp4)
+[![Watch squint clean up an AI-made dashboard (30 seconds)](media/poster.jpg)](https://squint.q9labs.ai)
 
 ```bash
 npx skills add realhasanshoaib/squint
